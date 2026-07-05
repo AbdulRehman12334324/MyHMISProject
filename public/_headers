@@ -1,0 +1,40 @@
+# =============================================================================
+# _headers — Cloudflare Pages security headers for HIMS Patient Intake Frontend
+# =============================================================================
+# Cloudflare Pages reads this file from the build output root and applies
+# these headers to matching responses automatically — no server config needed.
+# This file is placed in /public so Vite copies it into /dist verbatim on
+# every `npm run build` (Vite copies everything under public/ as-is).
+#
+# Header set below mirrors nginx.conf 1:1 (the header block that was
+# re-declared on every location in the original nginx config), so the
+# security posture is unchanged between the nginx deployment and Cloudflare
+# Pages deployment.
+#
+# ACTION REQUIRED: replace https://api.yourhospital.com in connect-src below
+# with your real backend API origin (same value you set for VITE_API_URL).
+# =============================================================================
+
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 0
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), bluetooth=(), interest-cohort=()
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://api.yourhospital.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; block-all-mixed-content; upgrade-insecure-requests;
+  Cache-Control: no-store, no-cache, must-revalidate
+  Pragma: no-cache
+
+# Long-term cache for Vite's fingerprinted, content-hashed static assets.
+# Safe to cache aggressively because the filename changes whenever content
+# changes (entryFileNames / chunkFileNames / assetFileNames in vite.config.js).
+/assets/*
+  Cache-Control: public, immutable, max-age=31536000
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 0
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), bluetooth=(), interest-cohort=()
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://api.yourhospital.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; block-all-mixed-content; upgrade-insecure-requests;

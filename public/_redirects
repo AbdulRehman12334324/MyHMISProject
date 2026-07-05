@@ -1,0 +1,10 @@
+# =============================================================================
+# _redirects — Cloudflare Pages SPA routing for HIMS Patient Intake Frontend
+# =============================================================================
+# Equivalent to nginx.conf's `try_files $uri $uri/ /index.html;` rule.
+# Serves index.html for any route that isn't a real static file, so React
+# Router / client-side routing works on hard refresh and direct URL access.
+# Placed in /public so Vite copies it into /dist verbatim on every build.
+# =============================================================================
+
+/*  /index.html  200
